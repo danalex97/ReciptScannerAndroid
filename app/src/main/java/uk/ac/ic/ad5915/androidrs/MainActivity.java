@@ -36,6 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void doLogin() {
         Intent startLogin = new Intent(this, LoginActivity.class);
-        startActivity(startLogin);
+        startActivity(startLogin) ;
     }
 }
