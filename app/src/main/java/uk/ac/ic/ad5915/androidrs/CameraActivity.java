@@ -18,7 +18,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        Intent intent = new Intent(this, TakePicture.class);
+        Intent intent = new Intent(this, CropNames.class);
         startActivity(intent);
     }
 

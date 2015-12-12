@@ -18,11 +18,21 @@ public class CropNumbers extends AppCompatActivity {
     private String from;
     private String to;
 
+    private final int RES = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_numbers);
 
+        Intent startTakePicture = new Intent(this, TakePicture.class);
+        startActivityForResult(startTakePicture, RES);
+    }
+
+    @Override
+    protected void onActivityResult(int x, int y, Intent z) {
+        super.onActivityResult(x,y,z);
+        setResult(RESULT_OK, this.getIntent());
         cropPicture();
         finish();
     }

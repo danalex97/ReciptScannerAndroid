@@ -22,10 +22,6 @@ public class TakePicture extends AppCompatActivity {
         setContentView(R.layout.activity_take_picture);
 
         takePicture();
-
-        Intent startTakePicture = new Intent(this, CropNames.class);
-        startActivity(startTakePicture);
-
         finish();
     }
 
