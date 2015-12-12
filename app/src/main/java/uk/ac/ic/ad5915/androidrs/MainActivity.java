@@ -1,7 +1,11 @@
 package uk.ac.ic.ad5915.androidrs;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,6 +14,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RelativeLayout linearLayout = (RelativeLayout) findViewById(R.id.main_layout);
 
+        FrameLayout frameLayout = (FrameLayout) linearLayout.getParent(); // Get parent FrameLayout
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCameraActivity();
+            }
+        });
+    }
+
+    public void startCameraActivity() {
+        Intent startCamera = new Intent(this, CameraActivity.class);
+        startActivity(startCamera);
     }
 }
