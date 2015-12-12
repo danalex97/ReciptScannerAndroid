@@ -3,4 +3,5 @@
     <string name="title_activity_camera">CameraActivity</string>
     <string name="capture"></string>
     <string name="picture"></string>
+    <string name="send_text"> Login </string>
 </resources>
