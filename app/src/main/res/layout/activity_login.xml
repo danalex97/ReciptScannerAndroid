@@ -11,23 +11,31 @@
     tools:context="uk.ac.ic.ad5915.androidrs.LoginActivity">
 
     <EditText
-        android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword" />
+        android:id="@+id/textName"
+        android:hint="Username"
+        android:focusable="true"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#809090"
+        android:layout_marginTop="46dp"
+         />
 
     <EditText
-        android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/textPassword"
+        android:textColorHint="#809090"
+        android:layout_below="@+id/textName"
+        android:hint="Password" />
 
     <Button
-        android:id="@+id/send_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="login"
-        android:text="@string/send_text"
-        />
+        android:text="login"
+        android:id="@+id/send_button"
+        android:layout_below="@+id/textPassword" />
 
 </RelativeLayout>

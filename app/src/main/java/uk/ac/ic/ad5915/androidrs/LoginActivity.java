@@ -17,8 +17,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = (EditText) findViewById(R.id.editText1);
-        password = (EditText) findViewById(R.id.editText2);
+        username = (EditText) findViewById(R.id.textName);
+        password = (EditText) findViewById(R.id.textPassword);
 
         send = (Button) findViewById(R.id.send_button);
 
@@ -33,8 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view) {
         if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
             //correcct password
+            finish();
         } else {
             //wrong password
+            finish();
         }
     }
 }
