@@ -23,7 +23,9 @@
         <activity android:name=".PictureActivity" />
         <activity android:name=".CropNumbers" />
         <activity android:name=".CropNames" />
-        <activity android:name=".TakePicture"></activity>
+        <activity android:name=".TakePicture" />
     </application>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

@@ -23,9 +23,6 @@ public class CropNumbers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_numbers);
 
-        Intent startCropNames = new Intent(this, CropNames.class);
-        startActivity(startCropNames);
-
         cropPicture();
         finish();
     }

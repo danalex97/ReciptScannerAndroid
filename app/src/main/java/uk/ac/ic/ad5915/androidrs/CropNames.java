@@ -23,7 +23,7 @@ public class CropNames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_names);
 
-        Intent startTakePicture = new Intent(this, TakePicture.class);
+        Intent startTakePicture = new Intent(this, CropNumbers.class);
         startActivity(startTakePicture);
 
         cropPicture();
