@@ -1,27 +1,29 @@
 package uk.ac.ic.ad5915.androidrs;
 
-import android.os.AsyncTask;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +34,11 @@ public class LoginActivity extends AppCompatActivity {
     //private URI uri;
 
     private static String myPARAMS;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,108 +60,90 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    class DoPostRequest extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... params) {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("username", params[0]);
-            map.put("password", params[1]);
-            String responseCode = performPostCall("http://3ced98c4.ngrok.io/api/login/", map);
+    @Override
+    public void onStart() {
+        super.onStart();
 
-            return responseCode;
-        }
-
-        protected void onPostExecute(String result) {
-            if (!result.equals("")) {
-                Log.e("some id", "valid auth");
-            } else {
-                Log.e("some id", "invalid auth");
-            }
-
-            finish();
-        }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Login Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://uk.ac.ic.ad5915.androidrs/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Login Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://uk.ac.ic.ad5915.androidrs/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
+    final TextView mTextView = (TextView) findViewById(R.id.text);
 
     public void login(View view) throws IOException {
         String usernameString = username.getText().toString();
         String passwordString = password.getText().toString();
 
-        new DoPostRequest().execute(usernameString, passwordString);
-
+        doSomeShit(this, usernameString, passwordString);
     }
 
-    public String  performPostCall(String requestURL, HashMap<String, String> postDataParams) {
+    public static void doSomeShit(Context context,final String user,final String pass){
 
-        URL url;
-        String response = "";
-        Log.e("alex", "performing post");
-        HttpURLConnection conn = null;
-        try {
-            url = new URL(requestURL.trim());
-            System.setProperty("http.keepAlive", "false");
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(300000);
-            conn.setConnectTimeout(300000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestProperty( "Accept-Encoding", "" );
-            conn.setRequestProperty("Connection", "close");
-            Log.e("alex", "so far so good");
-
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(postDataParams));
-
-            Log.e("alex", "so far so good 2");
-
-            Log.e("alex", "string: " + getPostDataString(postDataParams));
-            //writer.flush();
-            //writer.close();
-            os.close();
-            int responseCode=conn.getResponseCode();
-
-
-            Log.e("alex", "Response code: " + responseCode + "");
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line=br.readLine()) != null) {
-                    response+=line;
-                }
-                response += "sss";
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://3ced98c4.ngrok.io/api/login/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("alex" , "respose: " + response);
             }
-            else {
-                response="";
-
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
             }
-        } catch (Exception e) {
-            Log.e("alex", "error message", e);
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("username", user);
+                params.put("password", pass);
 
-        } finally {
-            conn.disconnect();
-        }
+                return params;
+            }
 
-        return response;
-    }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        queue.add(sr);
 
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-        }
-
-        return result.toString();
     }
 }
