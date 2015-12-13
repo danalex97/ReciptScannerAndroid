@@ -13,8 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        doLogin();
-
         RelativeLayout linearLayout = (RelativeLayout) findViewById(R.id.main_layout);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,10 +25,5 @@ public class MainActivity extends AppCompatActivity {
     public void startCameraActivity() {
         Intent startCamera = new Intent(this, CameraActivity.class);
         startActivity(startCamera);
-    }
-
-    public void doLogin() {
-        Intent startLogin = new Intent(this, LoginActivity.class);
-        startActivity(startLogin) ;
     }
 }

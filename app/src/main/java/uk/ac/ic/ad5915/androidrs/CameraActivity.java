@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.koushikdutta.ion.Ion;
+
 import java.io.File;
+
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -39,14 +42,24 @@ public class CameraActivity extends AppCompatActivity {
         imgView.setImageBitmap(bitmap);
     }
 
+
    public void stop(View view) {
-
+       Ion.with(this)
+               .load("http://73e40815.ngrok.io/api/upload")
+               .setMultipartParameter("username", LoginActivity.loggedInUsername)
+               .setMultipartFile("names", "image/jpg", new File("/sdcard/names.jpg"))
+               .setMultipartFile("prices", "image/jpg", new File("/sdcard/numbers.jpg"));
        finish();
-
     }
 
     public void redo(View view) {
         Intent intent = new Intent(this, CropNumbers.class);
         startActivity(intent);
     }
+
+    /* ---------------------------------------------------------------------------------
+
+
+        --------------------------------------------------------------------------------------
+     */
 }

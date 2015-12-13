@@ -1,6 +1,7 @@
 package uk.ac.ic.ad5915.androidrs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button send;
     //private URI uri;
 
+    public static String loggedInUsername = "";
     private static String myPARAMS;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -105,26 +106,29 @@ public class LoginActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    final TextView mTextView = (TextView) findViewById(R.id.text);
-
     public void login(View view) throws IOException {
         String usernameString = username.getText().toString();
         String passwordString = password.getText().toString();
 
         doSomeShit(this, usernameString, passwordString);
+        finish();
     }
 
-    public static void doSomeShit(Context context,final String user,final String pass){
+    public void doSomeShit(final Context context, final String user, final String pass){
 
         RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://3ced98c4.ngrok.io/api/login/", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://73e40815.ngrok.io/api/login/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("alex" , "respose: " + response);
+                loggedInUsername = user;
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("alex" , "resposeerror: " + error.networkResponse.statusCode);
             }
         }){
             @Override
