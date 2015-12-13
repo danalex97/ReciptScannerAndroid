@@ -8,11 +8,30 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/main_layout"
-    tools:context="uk.ac.ic.ad5915.androidrs.MainActivity">
+    tools:context="uk.ac.ic.ad5915.androidrs.MainActivity"
+    android:background="#3f51b5">
 
     <TextView
+        android:text="1. Take a picture of your receipt 2. Crop the products column
+3. Crop the prices column
+4.Send it and you are done! You can now sign in online and keep track of your shopping
+
+Tap to proceed"
+        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_marginBottom="65dp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_height="200dp"
+        android:id="@+id/imageButton"
+        android:background="@drawable/cropped"
+        />
 
 </RelativeLayout>
